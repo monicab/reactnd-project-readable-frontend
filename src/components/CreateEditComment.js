@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes  from 'prop-types';
 
-export default class CreateComment extends Component {
+export default class CreateEditComment extends Component {
   static propTypes = {
     comment: PropTypes.object,
     onCancel: PropTypes.func.isRequired,
@@ -43,7 +43,7 @@ export default class CreateComment extends Component {
     this.props.onCreate(newComment)
   }
 
-  handleClickCancel(e) {
+  handleClickCancel() {
     this.props.onCancel();
   }
 
