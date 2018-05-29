@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.post-list {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid deepskyblue;
+}
+
+.post-container {
+  border: 1px solid greenyellow;
+  margin: 10px;
+  padding: 10px;
+}
+
+.categories-list {
+  border: 1px solid lightcoral;
+  margin: 10px;
+  padding: 10px;
+}
+
+.categories-list li {
+  display: inline-block;
+  margin: 10px;
+}
+
+.comment-list {
+  border: 1px solid pink;
+  margin: 10px;
+  padding: 10px;
+}
+
+.comment-container {
+  border: 1px solid lightpink;
+  margin: 10px;
+  padding: 10px;
+}
+
