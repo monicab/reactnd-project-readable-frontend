@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import CommentList from './CommentList'
-import CreateComment from './CreateComment';
+import CreateEditComment from './CreateEditComment';
 import Post from './Post';
 import { fetchPost } from '../actions/post';
 import { fetchCommentsForPost } from '../actions/comment';
@@ -60,7 +60,7 @@ export class PostDetail extends Component {
           <button onClick={ this.handleClickCreateComment }>Add Comment in Place!</button>
         </li>
         {this.state.showCreateComment &&
-          <CreateComment onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateComment>}
+          <CreateEditComment onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
         <br/>
         <CommentList/>
         <Link to="/">Go Back</Link>

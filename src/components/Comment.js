@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { upVoteComment, downVoteComment, fetchCommentsForPost, fetchComment, editComment, deleteComment } from '../actions/comment'
-import CreateComment from './CreateComment'
+import CreateEditComment from './CreateEditComment'
 
 export class Comment extends Component {
   static propTypes = {
@@ -70,7 +70,7 @@ export class Comment extends Component {
           </li>
         </ul>
         {this.state.showCreateComment &&
-          <CreateComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateComment>}
+          <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
       </div>
     )
   }

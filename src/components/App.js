@@ -11,7 +11,6 @@ import CreatePost from './CreatePost';
 import EditPost from './EditPost';
 import PostDetail from './PostDetail'
 import PostListPage from './PostListPage'
-import CreateComment from './CreateComment'
 import { fetchAllCategories } from '../actions/category'
 
 export class App extends Component {
@@ -29,7 +28,6 @@ export class App extends Component {
             <Route exact path="/posts/new" component={CreatePost}/>
             <Route exact path="/posts/edit/:post_id" component={EditPost}/>
             <Route exact path="/:category/:post_id" component={PostDetail}/>
-            <Route exact path="/posts/:post_id/comments/new" component={CreateComment}/>
           </Switch>
         </div>
       </div>
