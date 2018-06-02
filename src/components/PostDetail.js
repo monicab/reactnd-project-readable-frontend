@@ -27,7 +27,6 @@ export class PostDetail extends Component {
   }
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.post_id).then(() =>{
-      console.log("post = ", this.props.post);
       this.props.fetchCommentsForPost(this.props.post)
     });
   }

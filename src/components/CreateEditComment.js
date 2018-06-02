@@ -53,7 +53,7 @@ export default class CreateEditComment extends Component {
         <div className="form-group row">
           <label className="col-sm-2 col-form-label">Comment: </label>
           <div className="col-sm-10">
-            <textarea className="form-control" value = {this.state.body } onChange={this.handleChangeForBody}></textarea>
+            <textarea className="form-control comment-body" value = {this.state.body } onChange={this.handleChangeForBody}></textarea>
           </div>
         </div>
         <div className="form-group row">

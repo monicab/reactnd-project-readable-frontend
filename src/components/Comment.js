@@ -11,7 +11,10 @@ export class Comment extends Component {
   static propTypes = {
     comment:          PropTypes.object.isRequired,
     deleteComment:    PropTypes.func.isRequired,
+    downVoteComment:  PropTypes.func.isRequired,
     editComment:      PropTypes.func.isRequired,
+    fetchComment:     PropTypes.func.isRequired,
+    upVoteComment:    PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -40,7 +43,6 @@ export class Comment extends Component {
   }
 
   handleClickForEditComment = (e) => {
-    e.preventDefault();
     this.setState({showCreateComment: true})
   }
 
@@ -64,18 +66,18 @@ export class Comment extends Component {
               <footer className="blockquote-footer">By {this.props.comment.author}</footer>
             </blockquote>
             <p>
-              <span className="badge badge-info">{this.props.comment.voteScore} votes</span>
+              <span className="badge badge-info total-votes">{this.props.comment.voteScore} votes</span>
             </p>
             <p>
-              <button type="button" className="btn btn-outline-info btn-sm" onClick={ this.handleClickForEditComment }>Edit Comment</button>
-              <button type="button" className="btn btn-outline-danger btn-sm" onClick={ this.handleClickDeleteComment }>Delete Comment</button>
+              <button type="button" className="btn btn-outline-info btn-sm btn-edit-comment" onClick={ this.handleClickForEditComment }>Edit Comment</button>
+              <button type="button" className="btn btn-outline-danger btn-sm btn-delete-comment" onClick={ this.handleClickDeleteComment }>Delete Comment</button>
             </p>
             {this.state.showCreateComment &&
             <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
           </div>
           <ul className="col-1 bd-comment-vote">
-            <li><button className="badge badge-info" onClick={ this.handleClickUpVoteForComment }>Up</button></li>
-            <li><button className="badge badge-info" onClick={ this.handleClickDownVoteForComment }>Down</button></li>
+            <li><button className="badge badge-info btn-up-vote" onClick={ this.handleClickUpVoteForComment }>Up</button></li>
+            <li><button className="badge badge-info btn-down-vote" onClick={ this.handleClickDownVoteForComment }>Down</button></li>
           </ul>
         </div>
       </div>

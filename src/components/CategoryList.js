@@ -19,7 +19,7 @@ export class CategoryList extends Component {
     return (
       <ul className="list-group list-group-flush">
         {allCategories &&
-         allCategories.map((category, index) => (<Category key={`${index}-${category.id}`} category={category}/>))}
+         allCategories.map((category, index) => (<Category key={`${index}-${category.name}`} category={category}/>))}
       </ul>
     )
   }
