@@ -48,20 +48,30 @@ export class Post extends Component {
   }
 
   render() {
+    const postedOn = new Date(this.props.post.timestamp) + "";
     return (
-      <div className="post-container">
-        <Link to={`/${this.props.post.category}/${this.props.post.id}`}>{this.props.post.title} [category - {this.props.post.category}]</Link>
-        <h5 className='post-author'>By {this.props.post.author} (Total Comments [{this.props.post.commentCount}]) (Current Score [{this.props.post.voteScore}])</h5>
-        <ul className="Post-actions-vote">
-          <li><button className='post-upVote' onClick={ this.handleClickUpVoteForPost }>{this.props.post.voteScore} Up Vote</button></li>
-          <li><button className='post-downVote' onClick={ this.handleClickDownVoteForPost }>{this.props.post.voteScore} Down Vote</button></li>
-        </ul>
-        <ul className="post-actions-modify">
-          <li>
-            <Link to={`/posts/edit/${this.props.post.id}`}><button className='post-edit'>Edit Post</button></Link>
-            <button className='post-delete' onClick={ this.handleClickDeletePost }>Delete Post</button>
-          </li>
-        </ul>
+      <div className="list-group-item list-group-item-action flex-column align-items-start bd-post">
+        <div className="row">
+          <div className="col-11">
+            <Link to={`/${this.props.post.category}/${this.props.post.id}`}><h4>{this.props.post.title} <span
+              className="badge badge-info">{this.props.post.voteScore}</span></h4></Link>
+            <h5>By <span className="font-italic">{this.props.post.author}</span> | {this.props.post.category}</h5>
+            <h6>Posted on <span className="font-italic">{postedOn}</span></h6>
+            <h6>Total Comments: <span className="font-weight-bold">{this.props.post.commentCount}</span></h6>
+            <p className="bd-post-actions">
+              <Link to={`/posts/edit/${this.props.post.id}`}><button type="button" className="btn btn-outline-info btn-sm">Edit Post</button></Link>
+              <button  type="button" className="btn btn-outline-danger btn-sm" onClick={ this.handleClickDeletePost }>Delete Post</button>
+            </p>
+          </div>
+          <ul className="col-1 bd-post-vote">
+            <li>
+                <span onClick={ this.handleClickUpVoteForPost } className="badge badge-info">Up Vote</span>
+            </li>
+            <li>
+              <span onClick={ this.handleClickDownVoteForPost } className="badge badge-info">Down Vote</span>
+            </li>
+          </ul>
+        </div>
       </div>
     )
   }
@@ -74,11 +84,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);
-
-// 1) Title
-// 2) Body
-// 3) Author
-// 4) Number of comments
-// 5) Current score
-// 6) Voting mechanism to upvote or downvote the post
-// 7) Buttons or links for editing or deleting that post

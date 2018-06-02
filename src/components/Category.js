@@ -9,7 +9,7 @@ export default class Category extends Component {
 
   render() {
     return (
-      <li>
+      <li className="list-group-item d-flex justify-content-between align-items-center">
         <Link to={"/" + this.props.category.path} onClick={this.handleClickLink}>{this.props.category.name}</Link>
       </li>
     )
