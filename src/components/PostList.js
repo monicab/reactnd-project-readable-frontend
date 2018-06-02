@@ -11,7 +11,7 @@ export class PostList extends Component {
 
   render () {
     return (
-      <div className='post-list'>
+      <div className="list-group">
         {this.props.posts &&
         this.props.posts.map((post, index) => (<Post key={`${index}-${post.id}`} post={post} showCreateComment={false}/>))}
       </div>

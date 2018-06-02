@@ -9,14 +9,25 @@ export class CategoryList extends Component {
     categories: PropTypes.array.isRequired,
   }
 
+  getAllCategories = () => {
+    return [ALL].concat(this.props.categories);
+  }
+
   render () {
+    let allCategories = this.getAllCategories();
+
     return (
-      <ul className='categories-list'>
-        {this.props.categories &&
-        this.props.categories.map((category, index) => (<Category key={`${index}-${category.id}`} category={category}/>))}
+      <ul className="list-group list-group-flush">
+        {allCategories &&
+         allCategories.map((category, index) => (<Category key={`${index}-${category.id}`} category={category}/>))}
       </ul>
     )
   }
+}
+
+const ALL = {
+  path: '',
+  name: 'all',
 }
 
 function mapStateToProps ({category}) {

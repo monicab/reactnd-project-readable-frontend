@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Link, Switch, Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
 // import logo from '../logo.svg';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 
 import CreatePost from './CreatePost';
@@ -20,8 +21,14 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-intro">
+      <div>
+        <nav className="navbar fixed-top navbar-dark bg-dark">
+          <a className="navbar-brand" href="">m blog</a>
+          <form className="form-inline">
+            <Link to="posts/new"><button className="btn btn-outline-info my-2 my-sm-0" type="submit">New Post</button></Link>
+          </form>
+        </nav>
+        <div className="container-fluid main-content">
           <Switch>
             <Route exact path="/" component={PostListPage}/>
             <Route exact path="/:category" component={PostListPage}/>

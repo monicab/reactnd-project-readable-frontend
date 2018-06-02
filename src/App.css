@@ -1,44 +1,111 @@
-.App {
-  text-align: center;
+.main-content {
+  margin-top: 55px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.bd-sidebar {
+  border: 1px solid rgba(0,0,0,.05);
+  padding-top: 10px;
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
+.bd-search {
+  margin-right: -15px;
+  margin-left: -15px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
   padding: 20px;
-  color: white;
+  /*margin-bottom: 20px;*/
 }
 
-.App-title {
-  font-size: 1.5em;
+.bd-sort {
+  margin-right: -15px;
+  margin-left: -15px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.App-intro {
-  font-size: large;
+.bd-sort > label {
+  margin-bottom: 0;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.bd-sort select {
+  height: 36px;
 }
 
-
-.Post-container {
-  border: 1px solid pink;
-  margin: 10px;
+.bd-post {
+  margin-bottom: 20px;
 }
 
-.Post-actions-vote > ul {
+.bd-post:first-child {
+  margin-top: 30px;
+}
+
+.bd-post a ~ button {
+  margin-left: 10px;
+}
+
+.bd-post-vote {
   list-style-type: none;
   text-align: center;
 }
 
-.Post-actions-vote li {
-  display: inline;
+.bd-post-vote .badge {
+  line-height: 40px;
+  text-align: center;
+  width: 80px;
 }
+
+.bd-post-vote .badge:hover {
+  cursor: pointer;
+}
+
+.bd-post-vote li {
+  margin-bottom: 5px;
+}
+
+.bd-post-actions {
+  margin-top: 36px;
+}
+
+/*.App {*/
+  /*text-align: center;*/
+/*}*/
+
+/*.App-logo {*/
+  /*animation: App-logo-spin infinite 20s linear;*/
+  /*height: 80px;*/
+/*}*/
+
+/*.App-header {*/
+  /*background-color: #222;*/
+  /*height: 150px;*/
+  /*padding: 20px;*/
+  /*color: white;*/
+/*}*/
+
+/*.App-title {*/
+  /*font-size: 1.5em;*/
+/*}*/
+
+/*.App-intro {*/
+  /*font-size: large;*/
+/*}*/
+
+/*@keyframes App-logo-spin {*/
+  /*from { transform: rotate(0deg); }*/
+  /*to { transform: rotate(360deg); }*/
+/*}*/
+
+
+/*.Post-container {*/
+  /*border: 1px solid pink;*/
+  /*margin: 10px;*/
+/*}*/
+
+/*.Post-actions-vote > ul {*/
+  /*list-style-type: none;*/
+  /*text-align: center;*/
+/*}*/
+
+/*.Post-actions-vote li {*/
+  /*display: inline;*/
+/*}*/
 
