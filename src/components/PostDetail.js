@@ -3,7 +3,6 @@ import PropTypes  from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import CommentList from './CommentList'
 import CreateEditComment from './CreateEditComment';
@@ -27,8 +26,10 @@ export class PostDetail extends Component {
     }
   }
   componentDidMount() {
-    this.props.fetchPost(this.props.match.params.post_id);
-    this.props.fetchCommentsForPost(this.props.match.params.post_id)
+    this.props.fetchPost(this.props.match.params.post_id).then(() =>{
+      console.log("post = ", this.props.post);
+      this.props.fetchCommentsForPost(this.props.post)
+    });
   }
 
   handleClickCreateComment = (e) => {
@@ -55,9 +56,9 @@ export class PostDetail extends Component {
     return (
       this.props.post &&
       (<div className="row">
-        <div class="col">
+        <div className="col">
           <Post post={this.props.post} detailMode={true}/>
-          <div class="list-group-item">
+          <div className="list-group-item">
             <h4>Comments
               <button type="button" className="btn btn-outline-info btn-sm float-right" onClick={this.handleClickCreateComment}>
                 + Comment
@@ -67,9 +68,6 @@ export class PostDetail extends Component {
           {this.state.showCreateComment &&
             <CreateEditComment onCancel={this.onCancelCreateComment} onCreate={this.onCreateComment}></CreateEditComment>}
           <CommentList/>
-          <div>
-            <Link to="/">Go Back</Link>
-          </div>
         </div>
       </div>)
     )
@@ -79,7 +77,6 @@ export class PostDetail extends Component {
 function mapStateToProps ({post, comment}) {
   return {
     post: post.selectedPost,
-    allCommentsForPost: comment.allCommentsForPost,
   }
 }
 const mapDispatchToProps = (dispatch) => {

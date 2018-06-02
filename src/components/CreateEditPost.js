@@ -5,24 +5,42 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
-import { createPost, fetchPost } from '../actions/post';
+import { createPost, fetchPost, editPost } from '../actions/post';
 import CategoryDropDown from './CategoryDropDown'
 
-export class CreatePost extends Component {
+export class CreateEditPost extends Component {
   static propTypes = {
     createPost: PropTypes.func.isRequired,
-    fetchPost: PropTypes.func.isRequired,
+    editPost:   PropTypes.func.isRequired,
+    fetchPost:  PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       title: '',
       author: '',
       body: '',
       category: '',
       redirectToReferrer: false,
       errors: [],
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.post_id) {
+      this.props.fetchPost(this.props.match.params.post_id).then(() => {
+        this.setState({
+          id: this.props.selectedPost.id,
+          title: this.props.selectedPost.title,
+          author: this.props.selectedPost.author,
+          body: this.props.selectedPost.body,
+          category: this.props.selectedPost.category,
+          redirectToReferrer: false,
+          errors: [],
+        });
+      });
     }
   }
 
@@ -36,16 +54,31 @@ export class CreatePost extends Component {
 
     if (!this.validateForm()) return;
 
-    this.props.createPost({
-      title: this.state.title,
-      author: this.state.author,
-      body: this.state.body,
-      category: this.state.category,
-    }).then(() => {
-      //redirect to the main page
-      this.setState({status: 'Post has successfully been created'})
-      this.setState({ redirectToReferrer: true })
-    });
+    if (this.state.id) {
+      this.props.editPost({
+        id: this.state.id,
+        title: this.state.title,
+        author: this.state.author,
+        body: this.state.body,
+        category: this.state.category,
+      }).then(() => {
+        //redirect to the main page
+        this.setState({status: 'Post has successfully been created'})
+        this.setState({ redirectToReferrer: true })
+      });
+    }
+    else {
+      this.props.createPost({
+        title: this.state.title,
+        author: this.state.author,
+        body: this.state.body,
+        category: this.state.category,
+      }).then(() => {
+        //redirect to the main page
+        this.setState({status: 'Post has successfully been created'})
+        this.setState({ redirectToReferrer: true })
+      });
+    }
   }
 
   validateForm = () => {
@@ -105,7 +138,7 @@ export class CreatePost extends Component {
                 </div>
               </div>
               <div className="col">
-                <CategoryDropDown onChange={this.handleCategoryChange} className={this.getFormControlClassName("category")}/>
+                <CategoryDropDown value={this.state.category} onChange={this.handleCategoryChange} className={this.getFormControlClassName("category")}/>
               </div>
           </div>
         </div>
@@ -141,13 +174,17 @@ function createHandleChange(stateName) {
   }
 }
 
-const mapStateToProps = null;
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ createPost, fetchPost }, dispatch);
+function mapStateToProps ({post}) {
+  return {
+    selectedPost: post.selectedPost
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ createPost, fetchPost, editPost }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEditPost);
 
 // 1) Title
 // 2) Body

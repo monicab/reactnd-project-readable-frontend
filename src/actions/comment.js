@@ -16,14 +16,14 @@ const baseURL = "http://localhost:3001";
 /* ------------------------------*/
 /* fetch all comments for a post */
 /* ------------------------------*/
-export function fetchCommentsForPost (postID) {
+export function fetchCommentsForPost (post) {
   return (dispatch) => {
     dispatch(fetchCommentsForPostPending());
-    return fetchCommentsForPostSubmit(postID)
+    return fetchCommentsForPostSubmit(post.id)
       .then((comments) => {
-        dispatch(fetchCommentsForPostSuccess(postID, comments))
+        dispatch(fetchCommentsForPostSuccess(post, comments))
       }).catch((error) => {
-        dispatch(fetchCommentsForPostFailure(postID, error))
+        dispatch(fetchCommentsForPostFailure(post, error))
       });
   }
 }
@@ -48,18 +48,18 @@ function fetchCommentsForPostAPIUrl(postID) {
   return `${baseURL}/posts/${postID}/comments`
 }
 
-function fetchCommentsForPostSuccess(postID, comments) {
+function fetchCommentsForPostSuccess(post, comments) {
   return {
     type: FETCH_ALL_COMMENTS_SUCCESS,
     comments: comments,
-    postID: postID,
+    post: post,
   }
 }
 
-function fetchCommentsForPostFailure(postID, error) {
+function fetchCommentsForPostFailure(post, error) {
   return {
     type: FETCH_ALL_COMMENTS_FAILURE,
-    postID: postID,
+    post: post,
     error: error,
   }
 }
