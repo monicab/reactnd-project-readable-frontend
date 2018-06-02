@@ -11,7 +11,7 @@ export class CommentList extends Component {
 
   render () {
     return (
-      <div className='comment-list'>
+      <div className="list-group">
         {this.props.comments &&
         this.props.comments.map((comment, index) => (<Comment key={`${index}-${comment.id}`} comment={comment}/>))}
       </div>

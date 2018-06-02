@@ -49,19 +49,23 @@ export default class CreateEditComment extends Component {
 
   render() {
     return (
-      <div className="comment-container">
-        <div><textarea value = {this.state.body } onChange={this.handleChangeForBody}></textarea></div>
-        <div><input type="text" value = { this.state.author } onChange={ this.handleChangeForAuthor } /></div>
-        <div><button onClick={this.handleClickForAdd}>Add</button><button onClick={this.handleClickCancel}>Cancel</button></div>
-      </div>
-    )
+      <form className="bd-commment-create-edit list-group-item">
+        <div className="form-group row">
+          <label className="col-sm-2 col-form-label">Comment: </label>
+          <div className="col-sm-10">
+            <textarea className="form-control" value = {this.state.body } onChange={this.handleChangeForBody}></textarea>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-2 col-form-label">Author: </label>
+          <div className="col-sm-10">
+            <input type="text" className="form-control" value = { this.state.author } onChange={ this.handleChangeForAuthor } />
+          </div>
+        </div>
+        <div>
+          <button type="button" className="btn btn-outline-info btn-sm" onClick={this.handleClickForAdd}>Add</button>
+          <button type="button" className="btn btn-outline-danger btn-sm"  onClick={this.handleClickCancel}>Cancel</button>
+        </div>
+      </form>)
   }
 }
-//
-// const mapStateToProps = null;
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ cancelCreateComment }, dispatch);
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(CreateComment);

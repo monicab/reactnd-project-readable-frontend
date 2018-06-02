@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes  from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -15,6 +15,7 @@ export class Post extends Component {
     fetchPosts:           PropTypes.func.isRequired,
     upVotePost:           PropTypes.func.isRequired,
     downVotePost:         PropTypes.func.isRequired,
+    detailMode:           PropTypes.bool
   }
 
   constructor(props) {
@@ -44,31 +45,48 @@ export class Post extends Component {
   handleClickDeletePost = (e) => {
     this.props.deletePost(this.props.post.id).then(() => {
       this.props.fetchPosts();
+    }).then(() => {
+      if (this.props.detailMode) {
+       this.setState({ redirectToReferrer: true });
+      }
     });
   }
 
   render() {
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to="/"/>;
+    }
+
     const postedOn = new Date(this.props.post.timestamp) + "";
     return (
       <div className="list-group-item list-group-item-action flex-column align-items-start bd-post">
         <div className="row">
           <div className="col-11">
-            <Link to={`/${this.props.post.category}/${this.props.post.id}`}><h4>{this.props.post.title} <span
-              className="badge badge-info">{this.props.post.voteScore}</span></h4></Link>
-            <h5>By <span className="font-italic">{this.props.post.author}</span> | {this.props.post.category}</h5>
-            <h6>Posted on <span className="font-italic">{postedOn}</span></h6>
-            <h6>Total Comments: <span className="font-weight-bold">{this.props.post.commentCount}</span></h6>
-            <p className="bd-post-actions">
+            <Link to={`/${this.props.post.category}/${this.props.post.id}`}><h4>{this.props.post.title}</h4></Link>
+            <h6>By <span className="font-italic">{this.props.post.author}</span> | Posted on <span className="font-italic">{postedOn}</span> | {this.props.post.category}</h6>
+            {this.props.detailMode &&
+              (<blockquote className="blockquote">
+                <p>{this.props.post.body}</p>
+                <footer className="blockquote-footer">{this.props.post.author}</footer>
+              </blockquote>)
+            }
+            <p>
+              <span className="badge badge-info">{this.props.post.voteScore} votes</span>
+              <span className="badge badge-info">{this.props.post.commentCount} comments</span>
+            </p>
+            <p>
               <Link to={`/posts/edit/${this.props.post.id}`}><button type="button" className="btn btn-outline-info btn-sm">Edit Post</button></Link>
-              <button  type="button" className="btn btn-outline-danger btn-sm" onClick={ this.handleClickDeletePost }>Delete Post</button>
+              <button type="button" className="btn btn-outline-danger btn-sm" onClick={ this.handleClickDeletePost }>Delete Post</button>
             </p>
           </div>
           <ul className="col-1 bd-post-vote">
             <li>
-                <span onClick={ this.handleClickUpVoteForPost } className="badge badge-info">Up Vote</span>
+                <span onClick={ this.handleClickUpVoteForPost } className="badge badge-info">Up</span>
             </li>
             <li>
-              <span onClick={ this.handleClickDownVoteForPost } className="badge badge-info">Down Vote</span>
+              <span onClick={ this.handleClickDownVoteForPost } className="badge badge-info">Down</span>
             </li>
           </ul>
         </div>

@@ -35,7 +35,13 @@ export class CreatePost extends Component {
     e.preventDefault();
 
     if (!this.validateForm()) return;
-    this.props.createPost(this.state).then(() => {
+
+    this.props.createPost({
+      title: this.state.title,
+      author: this.state.author,
+      body: this.state.body,
+      category: this.state.category,
+    }).then(() => {
       //redirect to the main page
       this.setState({status: 'Post has successfully been created'})
       this.setState({ redirectToReferrer: true })
@@ -47,21 +53,27 @@ export class CreatePost extends Component {
     // confirm all mandatory fields are present
     let errors = [];
     if (!this.state.title) {
-      errors.push("Please add a title")
+      errors.push("title")
     }
     if (!this.state.author) {
-      errors.push("Please add an author")
+      errors.push("author")
     }
     if (!this.state.body) {
-      errors.push("Please add a body")
+      errors.push("body")
     }
     if (!this.state.category) {
-      errors.push("Please select a category")
+      errors.push("category")
     }
     this.setState({
       errors: errors
     })
     return errors.length === 0;
+  }
+
+  getFormControlClassName = (elem) => {
+    let classNames = ["form-control"];
+    if (this.state.errors.includes(elem)) { classNames.push("is-invalid")}
+    return classNames.join(" ");
   }
 
   render() {
@@ -72,18 +84,49 @@ export class CreatePost extends Component {
     }
 
     return (
-      <form className="post-new" onSubmit={this.handleSubmit}>
-        <ul>
-          {this.state.errors && this.state.errors.map((error, index) => (<li key={index}>{error}</li>))}
-        </ul>
-        <div><label>Title: <input type="text" name="post-title" value={this.state.title} onChange={this.handleTitleChange}/></label></div>
-        <div><label>Author: <input type="text" name="post-author" value={this.state.author} onChange={this.handleAuthorChange}/></label></div>
-        <div><label>Body: <input type="text" name="post-body" value={this.state.body} onChange={this.handleBodyChange}/></label></div>
-        <div><CategoryDropDown onChange={this.handleCategoryChange}/></div>
-
-        <div>
-          <button type="submit">Submit Post</button>
-          <Link to="/">Go Back</Link>
+      <form onSubmit={this.handleSubmit}>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label htmlFor="postTitleID">Title</label>
+              <input type="text" className={this.getFormControlClassName("title")} id="postTitleID" name="post-title" value={this.state.title}
+                     onChange={this.handleTitleChange}/>
+              <div className="invalid-feedback">Please add a title.</div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="row">
+              <div className="col">
+                <div className="form-group">
+                  <label htmlFor="postAuthor">Author</label>
+                  <input type="text" className={this.getFormControlClassName("author")}  id="postAuthor" name="post-author" value={this.state.author}
+                                           onChange={this.handleAuthorChange}/>
+                  <div className="invalid-feedback">Please add an author.</div>
+                </div>
+              </div>
+              <div className="col">
+                <CategoryDropDown onChange={this.handleCategoryChange} className={this.getFormControlClassName("category")}/>
+              </div>
+          </div>
+        </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label htmlFor="postBody">Body</label>
+              <textarea type="text" className={this.getFormControlClassName("body")}  id="postBody" name="post-body" value={this.state.body}
+                                     onChange={this.handleBodyChange} rows="10"/>
+              <div className="invalid-feedback">Please add some text to your blog post.</div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="form-group float-right">
+              <button type="submit" className="btn btn-outline-info btn-sm">Submit Post</button>
+              <Link to="/"><button type="button" className="btn btn-outline-info btn-sm">Cancel</button></Link>
+            </div>
+          </div>
         </div>
       </form>
     )
