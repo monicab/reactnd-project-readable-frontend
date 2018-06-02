@@ -9,8 +9,7 @@ import '../App.css';
 
 import CategoryList from './CategoryList';
 import SortBy from './SortBy';
-import CreatePost from './CreatePost';
-import EditPost from './EditPost';
+import CreateEditPost from './CreateEditPost';
 import PostDetail from './PostDetail'
 import PostListPage from './PostListPage'
 import { fetchAllCategories } from '../actions/category'
@@ -46,8 +45,8 @@ export class App extends Component {
               <Switch>
                 <Route exact path="/" component={PostListPage}/>
                 <Route exact path="/:category" component={PostListPage}/>
-                <Route exact path="/posts/new" component={CreatePost}/>
-                <Route exact path="/posts/edit/:post_id" component={EditPost}/>
+                <Route exact path="/posts/new" component={CreateEditPost}/>
+                <Route exact path="/posts/edit/:post_id" component={CreateEditPost}/>
                 <Route exact path="/:category/:post_id" component={PostDetail}/>
               </Switch>
             </div>

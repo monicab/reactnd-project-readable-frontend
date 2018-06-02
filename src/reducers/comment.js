@@ -24,12 +24,14 @@ const comment = (state = commentsInitialState, action) => {
       return {
         ...state,
         allCommentsForPost: action.comments,
+        selectedPost: action.post,
         isFetchingAllCommentsForPost: false,
       }
 
     case FETCH_ALL_COMMENTS_FAILURE:
       return {
         ...state,
+        selectedPost: action.post,
         isFetchingAllCommentsForPost: false,
       }
 
@@ -132,7 +134,7 @@ const comment = (state = commentsInitialState, action) => {
         ...state,
         isEditingComment: false,
       }
-      
+
     default:
       return state
   }
