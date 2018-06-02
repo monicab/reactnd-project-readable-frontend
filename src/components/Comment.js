@@ -56,21 +56,28 @@ export class Comment extends Component {
 
   render() {
     return (
-      <div className="comment-container">
-        <p>{this.props.comment.body}</p>
-        <p>By {this.props.comment.author}</p>
-        <ul className="comment-actions-vote">
-          <li><button className='post-upVote' onClick={ this.handleClickUpVoteForComment }>{this.props.comment.voteScore} Up Vote</button></li>
-          <li><button className='post-downVote' onClick={ this.handleClickDownVoteForComment }>{this.props.comment.voteScore} Down Vote</button></li>
-        </ul>
-        <ul className="comment-actions-modify">
-          <li>
-            <button className='comment-edit' onClick={ this.handleClickForEditComment }>Edit Comment</button>
-            <button className='comment-delete' onClick={ this.handleClickDeleteComment }>Delete Comment</button>
-          </li>
-        </ul>
-        {this.state.showCreateComment &&
-          <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
+      <div className="list-group-item list-group-item-action flex-column align-items-start">
+        <div className="row">
+          <div className="col-11">
+            <blockquote className="blockquote">
+              <p>{this.props.comment.body}</p>
+              <footer className="blockquote-footer">By {this.props.comment.author}</footer>
+            </blockquote>
+            <p>
+              <span className="badge badge-info">{this.props.comment.voteScore} votes</span>
+            </p>
+            <p>
+              <button type="button" className="btn btn-outline-info btn-sm" onClick={ this.handleClickForEditComment }>Edit Comment</button>
+              <button type="button" className="btn btn-outline-danger btn-sm" onClick={ this.handleClickDeleteComment }>Delete Comment</button>
+            </p>
+            {this.state.showCreateComment &&
+            <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
+          </div>
+          <ul className="col-1 bd-comment-vote">
+            <li><button className="badge badge-info" onClick={ this.handleClickUpVoteForComment }>Up</button></li>
+            <li><button className="badge badge-info" onClick={ this.handleClickDownVoteForComment }>Down</button></li>
+          </ul>
+        </div>
       </div>
     )
   }

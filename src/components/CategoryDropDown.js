@@ -6,7 +6,7 @@ export class CategoryDropDown extends Component {
   static propTypes = {
     categories:   PropTypes.array.isRequired,
     onChange:     PropTypes.func.isRequired,
-    value:        PropTypes.string
+    value:        PropTypes.string,
   }
 
   constructor(props) {
@@ -23,14 +23,15 @@ export class CategoryDropDown extends Component {
 
   render () {
     return (
-      <label>
-        Categories: &nbsp;
-        <select value={this.state.value || this.props.value} onChange={this.handleChange}>
+      <div className="form-group">
+        <label>Categories</label>
+        <select value={this.state.value || this.props.value} onChange={this.handleChange} className={this.props.className}>
           <option key="empty" value=""> -- Please select -- </option>
           {this.props.categories &&
             this.props.categories.map((category) => (<option key={category.name} value={category.name}>{category.name}</option>))}
         </select>
-      </label>
+        <div className="invalid-feedback">Please select a category.</div>
+      </div>
     )
   }
 }

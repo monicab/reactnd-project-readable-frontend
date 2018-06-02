@@ -54,17 +54,24 @@ export class PostDetail extends Component {
   render() {
     return (
       this.props.post &&
-      (<form className="post-edit">
-        <Post post={this.props.post}/>
-        <li>
-          <button onClick={ this.handleClickCreateComment }>Add Comment in Place!</button>
-        </li>
-        {this.state.showCreateComment &&
-          <CreateEditComment onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
-        <br/>
-        <CommentList/>
-        <Link to="/">Go Back</Link>
-      </form>)
+      (<div className="row">
+        <div class="col">
+          <Post post={this.props.post} detailMode={true}/>
+          <div class="list-group-item">
+            <h4>Comments
+              <button type="button" className="btn btn-outline-info btn-sm float-right" onClick={this.handleClickCreateComment}>
+                + Comment
+              </button>
+            </h4>
+          </div>
+          {this.state.showCreateComment &&
+            <CreateEditComment onCancel={this.onCancelCreateComment} onCreate={this.onCreateComment}></CreateEditComment>}
+          <CommentList/>
+          <div>
+            <Link to="/">Go Back</Link>
+          </div>
+        </div>
+      </div>)
     )
   }
 }

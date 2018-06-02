@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
-import CategoryList from './CategoryList';
 import PostList from './PostList';
-import SortBy from './SortBy';
 
 import { fetchPosts } from '../actions/post';
 
@@ -35,22 +33,7 @@ export class PostListPage extends Component {
 
   render () {
     return (
-      <div className="row">
-        <div className="col-2 bd-sidebar">
-          <form className="bd-search d-flex align-items-center">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-          </form>
-          <form className="bd-sort d-flex align-items-center">
-            <label>Sort By &nbsp;</label>
-            <SortBy/>
-          </form>
-          <label className="font-weight-bold">Categories</label>
-          <CategoryList />
-        </div>
-        <div className="col-10">
-          <PostList />
-        </div>
-      </div>
+      <PostList />
     )
   }
 }

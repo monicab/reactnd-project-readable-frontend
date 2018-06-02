@@ -157,6 +157,7 @@ function createPostPending() {
 
 export function createPost (newPostData) {
   newPostData.id = newPostData.id || `id-${Date.now()}`
+  newPostData.timestamp = Date.now();
   return (dispatch) => {
     dispatch(createPostPending())
     return createPostSubmit(newPostData)
@@ -259,7 +260,7 @@ function voteForPost (post, voteDirection) {
     }).catch((error) => {
       dispatch(votePostFailure(error))
     })
-  }  
+  }
 }
 
 export function upVotePost (post) {

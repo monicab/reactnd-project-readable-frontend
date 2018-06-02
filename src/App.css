@@ -1,3 +1,12 @@
+
+a ~ button, button ~ a, button ~ button {
+  margin-left: 10px;
+}
+
+span.badge ~ span.badge {
+  margin-left: 10px;
+}
+
 .main-content {
   margin-top: 55px;
 }
@@ -38,33 +47,32 @@
   margin-top: 30px;
 }
 
-.bd-post a ~ button {
-  margin-left: 10px;
-}
-
-.bd-post-vote {
+.bd-post-vote,
+.bd-comment-vote {
   list-style-type: none;
   text-align: center;
 }
 
-.bd-post-vote .badge {
-  line-height: 40px;
+.bd-post-vote .badge,
+.bd-comment-vote .badge {
+  line-height: 30px;
   text-align: center;
-  width: 80px;
+  width: 46px;
 }
 
-.bd-post-vote .badge:hover {
+.bd-post-vote .badge:hover,
+.bd-comment-vote .badge:hover{
   cursor: pointer;
 }
 
-.bd-post-vote li {
+.bd-post-vote li,
+.bd-comment-vote li {
   margin-bottom: 5px;
 }
 
-.bd-post-actions {
-  margin-top: 36px;
+form.bd-commment-create-edit {
+  padding: 20px 50px;
 }
-
 /*.App {*/
   /*text-align: center;*/
 /*}*/
