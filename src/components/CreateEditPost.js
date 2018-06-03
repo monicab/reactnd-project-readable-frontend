@@ -10,9 +10,10 @@ import CategoryDropDown from './CategoryDropDown'
 
 export class CreateEditPost extends Component {
   static propTypes = {
-    createPost: PropTypes.func.isRequired,
-    editPost:   PropTypes.func.isRequired,
-    fetchPost:  PropTypes.func.isRequired,
+    createPost:   PropTypes.func.isRequired,
+    editPost:     PropTypes.func.isRequired,
+    fetchPost:    PropTypes.func.isRequired,
+    selectedPost: PropTypes.object,
   }
 
   constructor(props) {
@@ -156,8 +157,8 @@ export class CreateEditPost extends Component {
         <div className="row">
           <div className="col">
             <div className="form-group float-right">
-              <button type="submit" className="btn btn-outline-info btn-sm">Submit Post</button>
-              <Link to="/"><button type="button" className="btn btn-outline-info btn-sm">Cancel</button></Link>
+              <button type="submit" className="btn btn-outline-info btn-sm btn-post-save">Submit Post</button>
+              <Link to="/"><button type="button" className="btn btn-outline-info btn-sm btn-post-cancel">Cancel</button></Link>
             </div>
           </div>
         </div>
@@ -168,6 +169,7 @@ export class CreateEditPost extends Component {
 
 function createHandleChange(stateName) {
   return function(e) {
+    console.log("target value = ", e.target.value);
     let newState = {};
     newState[stateName] = e.target.value;
     this.setState(newState);

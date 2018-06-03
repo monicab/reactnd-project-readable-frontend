@@ -64,7 +64,7 @@ export class Post extends Component {
       <div className="list-group-item list-group-item-action flex-column align-items-start bd-post">
         <div className="row">
           <div className="col-11">
-            <Link to={`/${this.props.post.category}/${this.props.post.id}`}><h4>{this.props.post.title}</h4></Link>
+            <Link to={`/${this.props.post.category}/${this.props.post.id}`}><h4 className="post-title">{this.props.post.title}</h4></Link>
             <h6>By <span className="font-italic">{this.props.post.author}</span> | Posted on <span className="font-italic">{postedOn}</span> | {this.props.post.category}</h6>
             {this.props.detailMode &&
               (<blockquote className="blockquote">
@@ -73,8 +73,8 @@ export class Post extends Component {
               </blockquote>)
             }
             <p>
-              <span className="badge badge-info">{this.props.post.voteScore} votes</span>
-              <span className="badge badge-info">{this.props.post.commentCount} comments</span>
+              <span className="badge badge-info post-vote-score">{this.props.post.voteScore} votes</span>
+              <span className="badge badge-info post-comment-count">{this.props.post.commentCount} comments</span>
             </p>
             <p>
               <Link to={`/posts/edit/${this.props.post.id}`}><button type="button" className="btn btn-outline-info btn-sm">Edit Post</button></Link>
@@ -83,10 +83,10 @@ export class Post extends Component {
           </div>
           <ul className="col-1 bd-post-vote">
             <li>
-                <span onClick={ this.handleClickUpVoteForPost } className="badge badge-info">Up</span>
+                <span onClick={ this.handleClickUpVoteForPost } className="badge badge-info button-post-upvote">Up</span>
             </li>
             <li>
-              <span onClick={ this.handleClickDownVoteForPost } className="badge badge-info">Down</span>
+              <span onClick={ this.handleClickDownVoteForPost } className="badge badge-info button-post-downvote">Down</span>
             </li>
           </ul>
         </div>

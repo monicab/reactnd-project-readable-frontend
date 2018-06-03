@@ -45,22 +45,27 @@ describe('Post component', () => {
 
   it('renders a title', () => {
     expect(wrapper.find('.post-title')).toHaveLength(1);
-    expect(wrapper.find('.post-title').text()).toEqual(`${post.title} [category - ${post.category}]`);
+    expect(wrapper.find('.post-title').text()).toEqual(`${post.title}`);
   });
 
-  it('renders the author\'s info', () => {
-    expect(wrapper.find('.post-author')).toHaveLength(1);
-    expect(wrapper.find('.post-author').text()).toEqual("By post author (Total Comments [3]) (Current Score [10])");
+  it('renders a post vote score', () => {
+    expect(wrapper.find('.post-vote-score')).toHaveLength(1);
+    expect(wrapper.find('.post-vote-score').text()).toEqual(`${post.voteScore} votes`);
+  });
+
+  it('renders a post comments count', () => {
+    expect(wrapper.find('.post-comment-count')).toHaveLength(1);
+    expect(wrapper.find('.post-comment-count').text()).toEqual(`${post.commentCount} comments`);
   });
 
   describe('up-vote button', () => {
     it('render a button for up voting the post', () => {
-      expect(wrapper.find('button.post-upVote')).toHaveLength(1);
+      expect(wrapper.find('.button-post-upvote')).toHaveLength(1);
     });
 
     describe('when click on upvote', () => {
       it('should call upVotePost to submit the vote', () => {
-        wrapper.find('button.post-upVote').simulate(
+        wrapper.find('.button-post-upvote').simulate(
           'click',
         );
 
@@ -68,7 +73,7 @@ describe('Post component', () => {
       });
 
       it('should call fetch post to refresh post', async () => {
-        await wrapper.find('button.post-upVote').simulate(
+        await wrapper.find('.button-post-upvote').simulate(
           'click',
         );
        expect(mockFetchFn.mock.calls.length).toBe(1)
@@ -78,12 +83,12 @@ describe('Post component', () => {
 
   describe('down-vote button', () => {
     it('render a button for down voting the post', () => {
-      expect(wrapper.find('button.post-downVote')).toHaveLength(1);
+      expect(wrapper.find('.button-post-downvote')).toHaveLength(1);
     });
 
     describe('when click on downvote, post', () => {
       it('should call downVotePost to submit the vote', () => {
-        wrapper.find('button.post-downVote').simulate(
+        wrapper.find('.button-post-downvote').simulate(
           'click',
         );
 
@@ -91,7 +96,7 @@ describe('Post component', () => {
       });
 
       it('should call fetch post to refresh post', async () => {
-        await wrapper.find('button.post-downVote').simulate(
+        await wrapper.find('.button-post-downvote').simulate(
           'click',
         );
 
