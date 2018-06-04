@@ -23,7 +23,10 @@ describe('fetch all comments async actions', () => {
 
   describe('all comments', () => {
     it('creates FETCH_ALL_COMMENTS_SUCCESS when fetching all comments for a post has been done', () => {
-      const postID = '8xf0y6ziyjabvozdd253nd'
+      const post = {
+        id: '8xf0y6ziyjabvozdd253nd',
+      }
+
       const returnedComments = [
         {
           "id": "894tuq4ut84ut8v4t8wun89g",
@@ -55,31 +58,34 @@ describe('fetch all comments async actions', () => {
         {
           type: FETCH_ALL_COMMENTS_SUCCESS,
           comments: returnedComments,
-          postID: postID,
+          post: post,
         }
       ];
 
       const store = mockStore();
 
-      return store.dispatch(actions.fetchCommentsForPost(postID)).then(() => {
+      return store.dispatch(actions.fetchCommentsForPost(post)).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
       })
     });
 
     it('creates FETCH_ALL_COMMENTS_FAILURE when fetching all comments for a post generates an error', () => {
-      const postID = 'bad-bad-post-id';
+      const post = {
+        id: 'bad-bad-post-id',
+      };
+
       const expectedActions = [
         {type: FETCH_ALL_COMMENTS_PENDING},
         {
           type: FETCH_ALL_COMMENTS_FAILURE,
           error: new TypeError('Network request failed'),
-          postID: postID,
+          post: post,
         },
       ];
 
       const store = mockStore()
 
-      return store.dispatch(actions.fetchCommentsForPost(postID))
+      return store.dispatch(actions.fetchCommentsForPost(post))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions)
         });

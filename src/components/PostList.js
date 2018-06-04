@@ -12,6 +12,7 @@ export class PostList extends Component {
   render () {
     return (
       <div className="list-group">
+        <h4 className="category-title">{this.props.category}</h4>
         {this.props.posts &&
         this.props.posts.map((post, index) => (<Post key={`${index}-${post.id}`} post={post} showCreateComment={false}/>))}
       </div>
@@ -21,7 +22,8 @@ export class PostList extends Component {
 
 function mapStateToProps ({post}) {
   return {
-    posts: post.allPosts
+    posts: post.allPosts,
+    category: post.category,
   }
 }
 

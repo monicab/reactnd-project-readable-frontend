@@ -72,7 +72,8 @@ describe('fetch all posts async actions', () => {
         { type: FETCH_ALL_POSTS_PENDING },
         {
           type: FETCH_ALL_POSTS_SUCCESS,
-          posts: returnedPosts
+          posts: returnedPosts,
+          category: category,
         }
       ];
 

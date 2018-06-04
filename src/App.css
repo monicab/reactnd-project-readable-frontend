@@ -73,47 +73,8 @@ span.badge ~ span.badge {
 form.bd-commment-create-edit {
   padding: 20px 50px;
 }
-/*.App {*/
-  /*text-align: center;*/
-/*}*/
 
-/*.App-logo {*/
-  /*animation: App-logo-spin infinite 20s linear;*/
-  /*height: 80px;*/
-/*}*/
-
-/*.App-header {*/
-  /*background-color: #222;*/
-  /*height: 150px;*/
-  /*padding: 20px;*/
-  /*color: white;*/
-/*}*/
-
-/*.App-title {*/
-  /*font-size: 1.5em;*/
-/*}*/
-
-/*.App-intro {*/
-  /*font-size: large;*/
-/*}*/
-
-/*@keyframes App-logo-spin {*/
-  /*from { transform: rotate(0deg); }*/
-  /*to { transform: rotate(360deg); }*/
-/*}*/
-
-
-/*.Post-container {*/
-  /*border: 1px solid pink;*/
-  /*margin: 10px;*/
-/*}*/
-
-/*.Post-actions-vote > ul {*/
-  /*list-style-type: none;*/
-  /*text-align: center;*/
-/*}*/
-
-/*.Post-actions-vote li {*/
-  /*display: inline;*/
-/*}*/
-
+.category-title {
+  text-transform: capitalize;
+  margin: 10px 0px;
+}

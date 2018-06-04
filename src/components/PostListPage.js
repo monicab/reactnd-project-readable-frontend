@@ -16,7 +16,7 @@ export class PostListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: undefined,
+      category: this.props.match.params.category,
     }
   }
 
@@ -33,7 +33,7 @@ export class PostListPage extends Component {
 
   render () {
     return (
-      <PostList />
+        <PostList />
     )
   }
 }

@@ -14,11 +14,16 @@ describe('post reducer', () => {
   beforeEach(() => {
     initialState = {
       allPosts: [],
+      category: "all",
+      "isEditingPost": false,
       isDeletingPost: false,
       isFetchingAllPosts: false,
       isFetchingPost: false,
       isCreatingPost: false,
-      postCreationErrors: []
+      postCreationErrors: [],
+      postEditingErrors: [],
+      selectedPost: {},
+      sortBy: "byDateDown"
     }
   })
 
@@ -75,6 +80,7 @@ describe('post reducer', () => {
       post: {id: 1, title: 'hello changed'}
     })).toEqual({
       allPosts: [ {id: 1, title: 'hello changed'} ],
+      selectedPost: {id: 1, title: 'hello changed'},
       isFetchingPost: false,
     })
   });

@@ -12,7 +12,3 @@ To get started developing right away:
 * start the development server with `npm start`
 * run test `npm test`
 * run tests with code `npm test -- --coverage`
-
-## Comments
-
-*

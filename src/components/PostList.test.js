@@ -31,7 +31,7 @@ describe('PostList component', () => {
 
   it('renders a post component per each post in the posts prop', () => {
     wrapper = shallow(<PostList {...props} />)
-    expect(wrapper.find(".post-list")).toHaveLength(1);
+    expect(wrapper.find(".list-group")).toHaveLength(1);
     expect(wrapper.find(Post)).toHaveLength(2);
   });
 });

@@ -31,12 +31,11 @@ export class App extends Component {
         <div className="container-fluid main-content">
           <div className="row">
             <div className="col-2 bd-sidebar">
-              <form className="bd-search d-flex align-items-center">
-                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-              </form>
               <form className="bd-sort d-flex align-items-center">
-                <label>Sort By &nbsp;</label>
-                <SortBy/>
+                <div className="form-group">
+                  <label>Sort By</label>
+                  <SortBy/>
+                </div>
               </form>
               <label className="font-weight-bold">Categories</label>
               <CategoryList />

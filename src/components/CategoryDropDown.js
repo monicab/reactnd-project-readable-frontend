@@ -11,7 +11,7 @@ export class CategoryDropDown extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: this.props.value || '' };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -25,7 +25,7 @@ export class CategoryDropDown extends Component {
     return (
       <div className="form-group">
         <label>Categories</label>
-        <select value={this.state.value || this.props.value} onChange={this.handleChange} className={this.props.className}>
+        <select value={this.state.value} onChange={this.handleChange} className={this.props.className}>
           <option key="empty" value=""> -- Please select -- </option>
           {this.props.categories &&
             this.props.categories.map((category) => (<option key={category.name} value={category.name}>{category.name}</option>))}

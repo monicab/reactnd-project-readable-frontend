@@ -10,14 +10,40 @@ import CategoryDropDown from './CategoryDropDown'
 
 export class CreateEditPost extends Component {
   static propTypes = {
-    createPost: PropTypes.func.isRequired,
-    editPost:   PropTypes.func.isRequired,
-    fetchPost:  PropTypes.func.isRequired,
+    createPost:   PropTypes.func.isRequired,
+    editPost:     PropTypes.func.isRequired,
+    fetchPost:    PropTypes.func.isRequired,
+    selectedPost: PropTypes.object,
   }
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getEmptyPostState()
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.post_id) {
+      this.props.fetchPost(this.props.match.params.post_id).then(() => {
+        this.setState(this.getExistingPostState());
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.match.params.post_id !== prevProps.match.params.post_id) {
+      if (this.props.match.params.post_id) {
+        this.props.fetchPost(this.props.match.params.post_id).then(() => {
+          this.setState(this.getExistingPostState());
+        });
+      }
+      else {
+        this.setState(this.getEmptyPostState());
+      }
+    }
+  }
+
+  getEmptyPostState = () => {
+    return {
       id: '',
       title: '',
       author: '',
@@ -28,19 +54,15 @@ export class CreateEditPost extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.match.params.post_id) {
-      this.props.fetchPost(this.props.match.params.post_id).then(() => {
-        this.setState({
-          id: this.props.selectedPost.id,
-          title: this.props.selectedPost.title,
-          author: this.props.selectedPost.author,
-          body: this.props.selectedPost.body,
-          category: this.props.selectedPost.category,
-          redirectToReferrer: false,
-          errors: [],
-        });
-      });
+  getExistingPostState = () => {
+    return {
+      id: this.props.selectedPost.id,
+      title: this.props.selectedPost.title,
+      author: this.props.selectedPost.author,
+      body: this.props.selectedPost.body,
+      category: this.props.selectedPost.category,
+      redirectToReferrer: false,
+      errors: [],
     }
   }
 
@@ -156,8 +178,8 @@ export class CreateEditPost extends Component {
         <div className="row">
           <div className="col">
             <div className="form-group float-right">
-              <button type="submit" className="btn btn-outline-info btn-sm">Submit Post</button>
-              <Link to="/"><button type="button" className="btn btn-outline-info btn-sm">Cancel</button></Link>
+              <button type="submit" className="btn btn-outline-info btn-sm btn-post-save">Submit Post</button>
+              <Link to="/"><button type="button" className="btn btn-outline-info btn-sm btn-post-cancel">Cancel</button></Link>
             </div>
           </div>
         </div>
