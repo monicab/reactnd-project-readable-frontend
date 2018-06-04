@@ -22,3 +22,4 @@ export const VOTE_POST_SUCCESS  = "VOTE_POST_SUCCESS";
 export const VOTE_POST_FAILURE  = "VOTE_POST_FAILURE";
 
 export const SORT_POSTS = "SORT_POSTS";
+export const FILTER_POSTS = "FILTER_POSTS";

@@ -9,6 +9,7 @@ import { CREATE_POST_SUCCESS, CREATE_POST_FAILURE, CREATE_POST_PENDING } from '.
 import { EDIT_POST_SUCCESS, EDIT_POST_FAILURE, EDIT_POST_PENDING } from '../actions/constants/post'
 import { DELETE_POST_SUCCESS, DELETE_POST_FAILURE, DELETE_POST_PENDING } from '../actions/constants/post'
 import { SORT_POSTS } from '../actions/constants/post'
+import { SORT_OPTIONS } from '../actions/constants/sortBy'
 
 const postsInitialState = {
   allPosts: [],
@@ -20,6 +21,8 @@ const postsInitialState = {
   postCreationErrors: [],
   postEditingErrors: [],
   selectedPost: {},
+  sortBy: SORT_OPTIONS[0].code,
+  category: 'all'
 }
 
 const post = (state = postsInitialState, action) => {
@@ -27,7 +30,8 @@ const post = (state = postsInitialState, action) => {
     case FETCH_ALL_POSTS_SUCCESS:
       return {
         ...state,
-        allPosts: action.posts,
+        allPosts: sortPosts(action.posts, state.sortBy),
+        category: action.category,
         isFetchingAllPosts: false,
       }
 
@@ -138,6 +142,7 @@ const post = (state = postsInitialState, action) => {
     case SORT_POSTS:
       return {
         ...state,
+        sortBy: action.sortDirection,
         allPosts: sortPosts(state.allPosts, action.sortDirection)
       }
 
@@ -162,10 +167,22 @@ function sortPosts(allPosts, sortDirection) {
   let newAllPosts = allPosts.slice(0);
   newAllPosts.sort(function(a, b) {
     switch(sortDirection) {
-      case "byScore":
-        return a.voteScore < b.voteScore;
-      case "byDate":
+      case "byDateDown":
         return a.timestamp < b.timestamp;
+      case "byDateUp":
+        return a.timestamp > b.timestamp;
+      case "byTitleDown":
+        return a.title < b.title;
+      case "byTitleUp":
+        return a.title > b.title;
+      case "byScoreDown":
+        return a.voteScore < b.voteScore;
+      case "byScoreUp":
+        return a.voteScore > b.voteScore;
+      case "byCommentsDown":
+        return a.commentCount < b.commentCount;
+      case "byCommentsUp":
+        return a.commentCount > b.commentCount;
       default:
         return a;
     }

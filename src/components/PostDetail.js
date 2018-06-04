@@ -13,10 +13,11 @@ import { createComment, editComment } from '../actions/comment';
 
 export class PostDetail extends Component {
   static propTypes = {
-    post:           PropTypes.object.isRequired,
-    fetchPost:      PropTypes.func.isRequired,
-    createComment:  PropTypes.func.isRequired,
-    editComment:    PropTypes.func.isRequired,
+    post:                 PropTypes.object.isRequired,
+    fetchPost:            PropTypes.func.isRequired,
+    createComment:        PropTypes.func.isRequired,
+    editComment:          PropTypes.func.isRequired,
+    fetchCommentsForPost: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -26,13 +27,12 @@ export class PostDetail extends Component {
     }
   }
   componentDidMount() {
-    this.props.fetchPost(this.props.match.params.post_id).then(() =>{
+    this.props.fetchPost(this.props.match.params.post_id).then(() => {
       this.props.fetchCommentsForPost(this.props.post)
     });
   }
 
   handleClickCreateComment = (e) => {
-    e.preventDefault();
     this.setState({ showCreateComment: true })
   }
 
@@ -59,7 +59,7 @@ export class PostDetail extends Component {
           <Post post={this.props.post} detailMode={true}/>
           <div className="list-group-item">
             <h4>Comments
-              <button type="button" className="btn btn-outline-info btn-sm float-right" onClick={this.handleClickCreateComment}>
+              <button type="button" className="btn btn-outline-info btn-sm float-right btn-add-comment" onClick={this.handleClickCreateComment}>
                 + Comment
               </button>
             </h4>
@@ -73,7 +73,7 @@ export class PostDetail extends Component {
   }
 }
 
-function mapStateToProps ({post, comment}) {
+function mapStateToProps ({post}) {
   return {
     post: post.selectedPost,
   }

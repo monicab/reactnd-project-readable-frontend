@@ -23,7 +23,7 @@ export function fetchPosts (category = undefined) {
     dispatch(fetchPostsPending());
     return fetchPostsSubmit(category)
       .then((posts) => {
-        dispatch(fetchPostsSuccess(posts))
+        dispatch(fetchPostsSuccess(posts, category))
       }).catch((error) => {
         dispatch(fetchPostsFailure(error))
       });
@@ -55,10 +55,11 @@ function fetchPostsAPIUrl(category) {
   }
 }
 
-function fetchPostsSuccess(posts) {
+function fetchPostsSuccess(posts, category) {
   return {
     type: FETCH_ALL_POSTS_SUCCESS,
     posts: posts,
+    category: category,
   }
 }
 
@@ -180,7 +181,6 @@ export function createPost (newPostData) {
 // category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 
 function editPostSubmit(editPostData) {
-  console.log("Edit post data =", editPostData);
   return fetch(`http://localhost:3001/posts/${editPostData.id}`, {
     headers: {
       ...defaultHeaders,
@@ -327,5 +327,4 @@ export function sortPosts(sortDirection) {
     sortDirection: sortDirection,
   }
 }
-
 export default post;

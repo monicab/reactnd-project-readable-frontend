@@ -33,7 +33,7 @@ export class PostListPage extends Component {
 
   render () {
     return (
-      <PostList />
+        <PostList />
     )
   }
 }

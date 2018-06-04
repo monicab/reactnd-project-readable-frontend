@@ -18,7 +18,32 @@ export class CreateEditPost extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getEmptyPostState()
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.post_id) {
+      this.props.fetchPost(this.props.match.params.post_id).then(() => {
+        this.setState(this.getExistingPostState());
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.match.params.post_id !== prevProps.match.params.post_id) {
+      if (this.props.match.params.post_id) {
+        this.props.fetchPost(this.props.match.params.post_id).then(() => {
+          this.setState(this.getExistingPostState());
+        });
+      }
+      else {
+        this.setState(this.getEmptyPostState());
+      }
+    }
+  }
+
+  getEmptyPostState = () => {
+    return {
       id: '',
       title: '',
       author: '',
@@ -29,19 +54,15 @@ export class CreateEditPost extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.match.params.post_id) {
-      this.props.fetchPost(this.props.match.params.post_id).then(() => {
-        this.setState({
-          id: this.props.selectedPost.id,
-          title: this.props.selectedPost.title,
-          author: this.props.selectedPost.author,
-          body: this.props.selectedPost.body,
-          category: this.props.selectedPost.category,
-          redirectToReferrer: false,
-          errors: [],
-        });
-      });
+  getExistingPostState = () => {
+    return {
+      id: this.props.selectedPost.id,
+      title: this.props.selectedPost.title,
+      author: this.props.selectedPost.author,
+      body: this.props.selectedPost.body,
+      category: this.props.selectedPost.category,
+      redirectToReferrer: false,
+      errors: [],
     }
   }
 
@@ -169,7 +190,6 @@ export class CreateEditPost extends Component {
 
 function createHandleChange(stateName) {
   return function(e) {
-    console.log("target value = ", e.target.value);
     let newState = {};
     newState[stateName] = e.target.value;
     this.setState(newState);

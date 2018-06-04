@@ -131,7 +131,6 @@ export function createComment (newCommentData) {
 
 function createCommentSubmit(newCommentData) {
   newCommentData["id"] = `c-${Date.now()}`;
-  console.log("newCommentData = ", newCommentData);
   return fetch(`http://localhost:3001/comments`, {
     headers: {
       ...defaultHeaders,
