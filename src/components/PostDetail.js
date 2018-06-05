@@ -3,6 +3,7 @@ import PropTypes  from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import CommentList from './CommentList'
 import CreateEditComment from './CreateEditComment';
@@ -24,12 +25,20 @@ export class PostDetail extends Component {
     super(props);
     this.state = {
       showCreateComment: false,
+      redirectTo404: false,
     }
   }
 
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.post_id).then(() => {
-      this.props.fetchCommentsForPost(this.props.post)
+      if (this.props.post.id) {
+        this.props.fetchCommentsForPost(this.props.post)
+      }
+      else {
+        if (!this.props.post.id) {
+          this.setState({ redirectTo404: true });
+        }
+      }
     });
   }
 
@@ -56,6 +65,9 @@ export class PostDetail extends Component {
   }
 
   render() {
+    if (this.state.redirectTo404) {
+      return (<Redirect to="/404"/>);
+    }
     return (
       this.props.post &&
       (<div className="row">
