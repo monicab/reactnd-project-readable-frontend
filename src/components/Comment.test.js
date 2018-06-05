@@ -10,14 +10,17 @@ describe('Comment component', () => {
   let wrapper;
   let comment;
   let props;
+  let post;
   let mockDeleteCommentFn = jest.fn(() => { return Promise.resolve(); });
   let mockEditCommentFn = jest.fn(() => { return Promise.resolve(); });
   let mockFetchCommentFn = jest.fn(() => { return Promise.resolve(); });
   let mockFetchCommentsForPostFn = jest.fn(() => { return Promise.resolve(); });
+  let mockFetchPostFn = jest.fn(() => { return Promise.resolve(); });
   let mockUpvoteFn = jest.fn(() => { return Promise.resolve(); });
   let mockDownvoteFn = jest.fn(() => { return Promise.resolve(); });
 
   beforeEach(() => {
+    post = { id: 5 },
     comment = {
       author: "comment author",
       body: "comment body",
@@ -35,6 +38,8 @@ describe('Comment component', () => {
       editComment: mockEditCommentFn,
       fetchComment: mockFetchCommentFn,
       fetchCommentsForPost: mockFetchCommentsForPostFn,
+      fetchPost: mockFetchPostFn,
+      selectedPost: post,
       upVoteComment: mockUpvoteFn,
       upVoteComment: mockUpvoteFn,
     }
@@ -48,6 +53,7 @@ describe('Comment component', () => {
     mockEditCommentFn.mockClear();
     mockFetchCommentsForPostFn.mockClear();
     mockFetchCommentFn.mockClear();
+    mockFetchPostFn.mockClear();
     mockUpvoteFn.mockClear();
   })
 
@@ -96,13 +102,12 @@ describe('Comment component', () => {
         expect(mockDeleteCommentFn.mock.calls.length).toBe(1)
       });
 
-      it('should call fetch comments for post to refresh comments list', async () => {
+      it('should call fetch post to refresh total comments', async () => {
         await wrapper.find(buttonSelector).simulate('click');
-        expect(mockFetchCommentsForPostFn.mock.calls.length).toBe(1)
+        expect(mockFetchPostFn.mock.calls.length).toBe(1)
       });
     });
   });
-
 
   describe('up-vote button', () => {
     const buttonSelector = '.btn-up-vote';

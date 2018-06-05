@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { upVoteComment, downVoteComment, fetchCommentsForPost, fetchComment, editComment, deleteComment } from '../actions/comment'
+import { fetchPost } from '../actions/post'
 import CreateEditComment from './CreateEditComment'
 
 export class Comment extends Component {
@@ -38,7 +39,9 @@ export class Comment extends Component {
 
   handleClickDeleteComment = (e) => {
     this.props.deleteComment(this.props.comment.id).then(() => {
-      this.props.fetchCommentsForPost(this.props.selectedPost);
+      this.props.fetchPost(this.props.selectedPost.id).then((post) => {
+        this.props.fetchCommentsForPost(post);
+      })
     });
   }
 
@@ -50,7 +53,7 @@ export class Comment extends Component {
     this.setState({showCreateComment: false})
   }
 
-  onCreateComment = (editedComment) => {
+  onEditComment = (editedComment) => {
     this.props.editComment(editedComment).then(() => {
       this.setState({showCreateComment: false});
     })
@@ -73,7 +76,7 @@ export class Comment extends Component {
               <button type="button" className="btn btn-outline-danger btn-sm btn-delete-comment" onClick={ this.handleClickDeleteComment }>Delete Comment</button>
             </p>
             {this.state.showCreateComment &&
-            <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onCreateComment } ></CreateEditComment>}
+              <CreateEditComment comment={ this.props.comment } onCancel={ this.onCancelCreateComment } onCreate={ this.onEditComment } ></CreateEditComment>}
           </div>
           <ul className="col-1 bd-comment-vote">
             <li><button className="badge badge-info btn-up-vote" onClick={ this.handleClickUpVoteForComment }>Up</button></li>
@@ -92,7 +95,7 @@ function mapStateToProps ({ comment }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ deleteComment, editComment, fetchCommentsForPost, fetchComment, upVoteComment, downVoteComment }, dispatch);
+  return bindActionCreators({ deleteComment, editComment, fetchCommentsForPost, fetchComment, fetchPost, upVoteComment, downVoteComment }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

@@ -108,6 +108,7 @@ export function fetchPost (post_id) {
     return fetchPostSubmit(post_id)
       .then((post) => {
         dispatch(fetchPostSuccess(post))
+        return post;
       }).catch((error) => {
         dispatch(fetchPostFailure(error))
       })

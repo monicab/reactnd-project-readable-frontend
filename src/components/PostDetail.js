@@ -26,6 +26,7 @@ export class PostDetail extends Component {
       showCreateComment: false,
     }
   }
+
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.post_id).then(() => {
       this.props.fetchCommentsForPost(this.props.post)
@@ -47,6 +48,9 @@ export class PostDetail extends Component {
       author: commentData.author,
       parentId: this.props.post.id
     }).then(() => {
+      this.props.fetchPost(this.props.post.id).then((post) => {
+        this.props.fetchCommentsForPost(post)
+      });
       this.setState({showCreateComment: false})
     })
   }
