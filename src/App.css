@@ -78,3 +78,7 @@ form.bd-commment-create-edit {
   text-transform: capitalize;
   margin: 10px 0px;
 }
+
+.col.no-match {
+  margin: 100px;
+}

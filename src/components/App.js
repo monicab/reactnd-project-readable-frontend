@@ -43,6 +43,7 @@ export class App extends Component {
             <div className="col-10">
               <Switch>
                 <Route exact path="/" component={PostListPage}/>
+                <Route exact path="/404" component={NoMatch} />
                 <Route exact path="/:category" component={PostListPage}/>
                 <Route exact path="/posts/new" component={CreateEditPost}/>
                 <Route exact path="/posts/edit/:post_id" component={CreateEditPost}/>
@@ -56,6 +57,17 @@ export class App extends Component {
   }
 }
 
+const NoMatch = () => (
+  <div>
+    <div className="row">
+      <div className="col no-match">
+        <h6>
+         This post is not longer available. So sorry! Why don't you create a new one?
+        </h6>
+      </div>
+    </div>
+  </div>
+);
 const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => {
